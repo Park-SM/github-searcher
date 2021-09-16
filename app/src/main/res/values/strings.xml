@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">GithubSearcher</string>
+    <string name="app_name">Github Searcher</string>
+
+    <string name="activitySearchUser_searchHint">검색할 Github ID를 입력해주세요.</string>
+    <string name="activitySearchUser_searchEmpty">검색할 ID를 입력해주세요 : (</string>
+    <string name="activitySearchUser_searchFail">Github 서비스에 접근할 수 없습니다. 네트워크 상태를 확인해주세요.</string>
 </resources>

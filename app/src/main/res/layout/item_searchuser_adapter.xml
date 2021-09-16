@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.smparkworld.githubsearcher.model.User"/>
+        <import type="kotlin.Unit"/>
+        <variable
+            name="onClick"
+            type="kotlin.jvm.functions.Function1&lt;User, Unit>" />
+        <variable
+            name="user"
+            type="User" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/itemSearchUserAdapter_padding"
+        android:onClick="@{() -> onClick.invoke(user)}">
+
+        <ImageView
+            android:layout_width="@dimen/itemSearchUserAdapter_avatarSize"
+            android:layout_height="@dimen/itemSearchUserAdapter_avatarSize"
+            android:layout_marginRight="@dimen/itemSearchUserAdapter_avatarMarginRight"
+            app:loadCircleImg="@{user.avatarUrl}"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@{user.name}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/itemSearchUserAdapter_nameTextSize"/>
+
+    </LinearLayout>
+
+</layout>

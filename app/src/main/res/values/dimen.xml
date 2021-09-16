@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SearchUser Activity -->
+    <dimen name="activitySearchUser_logo">50dp</dimen>
+    <dimen name="activitySearchUser_logoPadding">10dp</dimen>
+    <dimen name="activitySearchUser_titleTextSize">18dp</dimen>
+    <dimen name="activitySearchUser_margin">7dp</dimen>
+    <dimen name="activitySearchUser_searchPadding">10dp</dimen>
+    <dimen name="activitySearchUser_searchElevation">5dp</dimen>
+    <dimen name="activitySearchUser_searchTextSize">15dp</dimen>
+
+    <!-- SearchUser Item -->
+    <dimen name="itemSearchUserAdapter_padding">10dp</dimen>
+    <dimen name="itemSearchUserAdapter_avatarSize">50dp</dimen>
+    <dimen name="itemSearchUserAdapter_avatarMarginRight">15dp</dimen>
+    <dimen name="itemSearchUserAdapter_nameTextSize">16dp</dimen>
+</resources>
