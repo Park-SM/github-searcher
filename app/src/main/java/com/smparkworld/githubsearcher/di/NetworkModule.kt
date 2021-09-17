@@ -1,6 +1,7 @@
 package com.smparkworld.githubsearcher.di
 
 import com.smparkworld.githubsearcher.BuildConfig
+import com.smparkworld.githubsearcher.data.remote.api.RepoAPI
 import com.smparkworld.githubsearcher.data.remote.api.UserAPI
 import dagger.Module
 import dagger.Provides
@@ -48,4 +49,9 @@ object NetworkModule {
     @Provides
     @JvmStatic
     fun provideUserAPI(retrofit: Retrofit): UserAPI = retrofit.create(UserAPI::class.java)
+
+    @Singleton
+    @Provides
+    @JvmStatic
+    fun provideRepoAPI(retrofit: Retrofit): RepoAPI = retrofit.create(RepoAPI::class.java)
 }

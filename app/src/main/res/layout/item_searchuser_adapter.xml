@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@{user.name}"
+            android:text="@{user.uid}"
             android:textColor="@color/black"
             android:textSize="@dimen/itemSearchUserAdapter_nameTextSize"/>
 

@@ -1,9 +1,8 @@
 package com.smparkworld.githubsearcher.ui.searchuser
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +14,7 @@ import com.smparkworld.githubsearcher.data.repository.PagingLoadStateAdapter
 import com.smparkworld.githubsearcher.databinding.ActivitySearchuserBinding
 import com.smparkworld.githubsearcher.extension.showSnackbar
 import com.smparkworld.githubsearcher.model.User
+import com.smparkworld.githubsearcher.ui.detailuser.DetailUserActivity
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -41,7 +41,9 @@ class SearchUserActivity : AppCompatActivity() {
     }
 
     private fun onClickItem(user: User) {
-        Toast.makeText(this, "Selected name is ${user.name}!", Toast.LENGTH_SHORT).show()
+        startActivity(
+            Intent(this, DetailUserActivity::class.java).putExtra("uid", user.uid)
+        )
     }
 
     private fun initObservers() {

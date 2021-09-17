@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="vm"
+            type="com.smparkworld.githubsearcher.ui.detailuser.DetailUserViewModel" />
+    </data>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="@dimen/activityDetailUser_fragPadding"
+            android:layout_marginLeft="@dimen/activityDetailUser_fragPadding"
+            android:layout_marginBottom="3dp"
+            android:text="아직 저장소가 없습니다."
+            android:textColor="@color/gray"
+            android:textStyle="bold"
+            android:background="@drawable/shape_search_form"
+            android:elevation="3dp"
+            android:visibility="@{vm.reposEmpty ? View.VISIBLE : View.GONE}"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvRepos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:background="@color/white"
+            android:visibility="@{vm.reposEmpty ? View.GONE : View.VISIBLE}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:submitList="@{vm.repos}"
+            tools:listitem="@layout/item_detailuser_repo_adapter"/>
+
+    </FrameLayout>
+
+</layout>

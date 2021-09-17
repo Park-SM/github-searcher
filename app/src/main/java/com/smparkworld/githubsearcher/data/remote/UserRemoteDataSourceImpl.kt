@@ -5,6 +5,7 @@ import com.smparkworld.githubsearcher.data.remote.api.UserAPI
 import com.smparkworld.githubsearcher.model.Result
 import com.smparkworld.githubsearcher.model.Result.Success
 import com.smparkworld.githubsearcher.model.Result.Error
+import com.smparkworld.githubsearcher.model.User
 import retrofit2.HttpException
 import javax.inject.Inject
 
@@ -22,6 +23,24 @@ class UserRemoteDataSourceImpl @Inject constructor(
                     Success(body)
                 } else {
                     throw NullPointerException("[UserAPI] searchById API response body is null.")
+                }
+            } else {
+                throw HttpException(response)
+            }
+        } catch (e: Exception) {
+            Error(e)
+        }
+    }
+
+    override suspend fun getById(uid: String): Result<User> {
+        return try {
+            val response = userAPI.getById(uid)
+            if (response.isSuccessful) {
+                val body = response.body()
+                if (body != null) {
+                    Success(body)
+                } else {
+                    throw NullPointerException("[UserAPI] findById API response body is null.")
                 }
             } else {
                 throw HttpException(response)
