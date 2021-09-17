@@ -1,6 +1,7 @@
 package com.smparkworld.githubsearcher.di
 
 import android.content.Context
+import com.smparkworld.githubsearcher.ui.detailuser.di.DetailUserComponent
 import com.smparkworld.githubsearcher.ui.searchuser.di.SearchUserComponent
 import dagger.BindsInstance
 import dagger.Component
@@ -20,4 +21,5 @@ interface AppComponent {
     }
 
     fun searchUserComponent(): SearchUserComponent.Factory
+    fun detailUserComponent(): DetailUserComponent.Factory
 }

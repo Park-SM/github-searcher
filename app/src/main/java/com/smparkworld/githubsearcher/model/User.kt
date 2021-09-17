@@ -6,14 +6,19 @@ import com.google.gson.annotations.SerializedName
 data class User(
 
     @SerializedName("login")
-    val name: String,
+    val uid: String,
+
+    @SerializedName("name")
+    val name: String? = null,
 
     @SerializedName("avatar_url")
     val avatarUrl: String,
 
     @SerializedName("bio")
     val bio: String? = null
-)
+) {
+    fun getUidAndName() = if (name != null) "$uid ($name)" else uid
+}
 
 sealed class UserModel {
 

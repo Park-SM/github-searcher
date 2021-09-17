@@ -1,10 +1,8 @@
 package com.smparkworld.githubsearcher.di
 
 import androidx.lifecycle.ViewModelProvider
-import com.smparkworld.githubsearcher.data.remote.UserRemoteDataSource
-import com.smparkworld.githubsearcher.data.remote.UserRemoteDataSourceImpl
-import com.smparkworld.githubsearcher.data.repository.UserRepository
-import com.smparkworld.githubsearcher.data.repository.UserRepositoryImpl
+import com.smparkworld.githubsearcher.data.remote.*
+import com.smparkworld.githubsearcher.data.repository.*
 import dagger.Binds
 import dagger.Module
 
@@ -19,4 +17,16 @@ abstract class AppModuleBinds {
 
     @Binds
     abstract fun bindUserRemoteDataSource(userRemoteDataSourceImpl: UserRemoteDataSourceImpl): UserRemoteDataSource
+
+    @Binds
+    abstract fun bindRepoRepository(repoRepositoryImpl: RepoRepositoryImpl): RepoRepository
+
+    @Binds
+    abstract fun bindRepoRemoteDataSource(repoRemoteDataSourceImpl: RepoRemoteDataSourceImpl): RepoRemoteDataSource
+
+    @Binds
+    abstract fun bindEventRepository(eventRepositoryImpl: EventRepositoryImpl): EventRepository
+
+    @Binds
+    abstract fun bindEventRemoteDataSource(eventRemoteDataSourceImpl: EventRemoteDataSourceImpl): EventRemoteDataSource
 }

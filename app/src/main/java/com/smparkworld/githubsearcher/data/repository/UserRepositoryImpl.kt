@@ -21,4 +21,7 @@ class UserRepositoryImpl @Inject constructor(
                   if (before is UserModel.Item && after is UserModel.Item) UserModel.Separator else null
               }
         }
+
+    override suspend fun getUserById(uid: String) =
+            remoteDataSource.getById(uid)
 }
