@@ -12,7 +12,7 @@ class RepoRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getRepoById(uid: String): Result<List<Repo>> {
         return try {
-            val response = githubAPI.getReposById(uid)
+            val response = githubAPI.getReposById(uid, "updated")
             if (response.isSuccessful) {
                 val body = response.body()
                 if (body != null) {

@@ -16,7 +16,9 @@ data class User(
 
     @SerializedName("bio")
     val bio: String? = null
-)
+) {
+    fun getUidAndName() = if (name != null) "$uid ($name)" else uid
+}
 
 sealed class UserModel {
 

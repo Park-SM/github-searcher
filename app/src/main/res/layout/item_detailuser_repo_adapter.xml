@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="repo"
             type="com.smparkworld.githubsearcher.model.Repo" />
@@ -23,9 +24,10 @@
             android:id="@+id/textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:text="@{repo.name}"
-            android:textColor="@color/black"
-            android:textSize="17dp"
+            android:textColor="@color/blue"
+            android:textSize="16dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +53,8 @@
             android:drawableLeft="@drawable/ic_baseline_language_24"
             android:gravity="center"
             android:text="@{repo.language}"
-            android:textSize="15dp"
+            android:textSize="13dp"
+            android:visibility="@{repo.language.length() == 0 ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -64,7 +67,7 @@
             android:drawableLeft="@drawable/ic_baseline_star_border_24"
             android:gravity="center"
             android:text="@{repo.numOfStar}"
-            android:textSize="15dp"
+            android:textSize="13dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView3"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />

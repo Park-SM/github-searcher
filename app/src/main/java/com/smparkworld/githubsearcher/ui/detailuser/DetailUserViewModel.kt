@@ -1,16 +1,22 @@
 package com.smparkworld.githubsearcher.ui.detailuser
 
+import android.util.Log
 import androidx.lifecycle.*
+import androidx.paging.CombinedLoadStates
+import androidx.paging.LoadState
+import androidx.paging.PagingData
 import com.smparkworld.githubsearcher.R
 import com.smparkworld.githubsearcher.data.repository.EventRepository
 import com.smparkworld.githubsearcher.data.repository.RepoRepository
 import com.smparkworld.githubsearcher.data.repository.UserRepository
-import com.smparkworld.githubsearcher.model.Repo
-import com.smparkworld.githubsearcher.model.Result
-import com.smparkworld.githubsearcher.model.User
+import com.smparkworld.githubsearcher.model.*
+import com.smparkworld.githubsearcher.model.Result.Success
+import com.smparkworld.githubsearcher.model.Result.Error
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import java.io.IOException
 import javax.inject.Inject
 
 class DetailUserViewModel @Inject constructor(
@@ -25,13 +31,15 @@ class DetailUserViewModel @Inject constructor(
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> = _loading
 
-    private val _user = MutableLiveData<User>()
-    val user: LiveData<User> = _user
+    private val _events = MutableLiveData<Flow<PagingData<DetailUserUIModel>>>()
+    val events: LiveData<Flow<PagingData<DetailUserUIModel>>> = _events
 
-    private val _repos = MutableLiveData<List<Repo>>()
-    val repos: LiveData<List<Repo>> = _repos
+    private val _eventEmpty = MutableLiveData<Boolean>()
+    val eventEmpty: LiveData<Boolean> = _eventEmpty
 
-    val reposEmpty: LiveData<Boolean> = Transformations.map(_repos) { it.isEmpty() }
+    lateinit var user: User
+
+    lateinit var repos: List<Repo>
 
     private var uid: String? = null
 
@@ -46,20 +54,25 @@ class DetailUserViewModel @Inject constructor(
                 async { userRepository.getUserById(uid) },
                 async { repoRepository.getRepoById(uid) }
             ).awaitAll().let { results ->
-                val user  = results[0] as Result<User>
-                val repos = results[1] as Result<List<Repo>>
+                val userResult  = results[0] as Result<User>
+                val reposResult = results[1] as Result<List<Repo>>
 
-                if (user is Result.Success && repos is Result.Success) {
-                    _user.value  = user.data
-                    _repos.value = repos.data
+                if (userResult is Success && reposResult is Success) {
+                    user  = userResult.data
+                    repos = reposResult.data
+                    _events.value = eventRepository.getEventsById(uid, 50)
                 } else {
                     _error.value = R.string.error_failedToConnectNetwork
-                    (user  as? Result.Error)?.printStackTrace()
-                    (repos as? Result.Error)?.printStackTrace()
+                    (user  as? Error)?.printStackTrace()
+                    (repos as? Error)?.printStackTrace()
                 }
                 _loading.value = false
             }
         }
+    }
+
+    fun setEventEmpty(isEmpty: Boolean) {
+        _eventEmpty.value = isEmpty
     }
 
     fun refresh() {

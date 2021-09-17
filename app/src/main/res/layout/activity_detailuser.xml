@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="vm"
             type="com.smparkworld.githubsearcher.ui.detailuser.DetailUserViewModel" />
@@ -17,10 +18,7 @@
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -52,39 +50,35 @@
             app:onRefreshListener="@{vm::refresh}"
             app:refreshing="@{vm.loading}">
 
-            <ScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvContainer"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never"
+                    android:padding="@dimen/activityDetailUser_fragPadding"
+                    android:clipToPadding="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-                    <fragment
-                        android:id="@+id/frag_userinfo"
-                        android:name="com.smparkworld.githubsearcher.ui.detailuser.UserInfoFragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        tools:layout="@layout/fragment_detailuser_userinfo" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/shape_search_form"
+                    android:elevation="3dp"
+                    android:gravity="center"
+                    android:text="최근 활동이 없습니다."
+                    android:textColor="@color/gray"
+                    android:textStyle="bold"
+                    android:visibility="@{vm.eventEmpty ? View.VISIBLE : View.GONE}" />
 
-                    <fragment
-                        android:id="@+id/frag_repo"
-                        android:name="com.smparkworld.githubsearcher.ui.detailuser.RepoFragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        tools:layout="@layout/fragment_detailuser_repo" />
-
-<!--                    <fragment-->
-<!--                        android:id="@+id/frag_event"-->
-<!--                        android:name="com.smparkworld.githubsearcher.ui.detailuser.EventFragment"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        tools:layout="@layout/fragment_detailuser_event" />-->
-
-                </LinearLayout>
-
-            </ScrollView>
+            </LinearLayout>
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

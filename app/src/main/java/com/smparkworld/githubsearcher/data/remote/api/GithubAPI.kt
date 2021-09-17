@@ -1,5 +1,6 @@
 package com.smparkworld.githubsearcher.data.remote.api
 
+import com.smparkworld.githubsearcher.model.Event
 import com.smparkworld.githubsearcher.model.Repo
 import com.smparkworld.githubsearcher.model.User
 import retrofit2.Response
@@ -23,7 +24,8 @@ interface GithubAPI {
 
     @GET("/users/{uid}/repos")
     suspend fun getReposById(
-            @Path("uid") uid: String
+            @Path("uid") uid: String,
+            @Query("sort") sort: String
     ): Response<List<Repo>>
 
     @GET("/users/{uid}/events")
@@ -31,5 +33,5 @@ interface GithubAPI {
             @Path("uid") uid: String,
             @Query("per_page") size: Int,
             @Query("page") page: Int
-    ): Response<UserEventsResponse>
+    ): Response<List<Event>>
 }

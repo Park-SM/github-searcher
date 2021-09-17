@@ -6,17 +6,25 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import com.smparkworld.githubsearcher.GithubSearcherApp
 import com.smparkworld.githubsearcher.R
+import com.smparkworld.githubsearcher.data.repository.PagingLoadStateAdapter
 import com.smparkworld.githubsearcher.databinding.ActivityDetailuserBinding
 import com.smparkworld.githubsearcher.extension.showSnackbar
 import com.smparkworld.githubsearcher.ui.detailuser.di.DetailUserComponent
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import java.lang.RuntimeException
+import java.lang.ref.WeakReference
 import javax.inject.Inject
 
 class DetailUserActivity : AppCompatActivity() {
 
     lateinit var detailUserComponent: DetailUserComponent
+
+    lateinit var binding: ActivityDetailuserBinding
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -31,7 +39,7 @@ class DetailUserActivity : AppCompatActivity() {
         detailUserComponent = (application as GithubSearcherApp).appComponent.detailUserComponent().create()
         detailUserComponent.inject(this)
         super.onCreate(savedInstanceState)
-        DataBindingUtil.setContentView<ActivityDetailuserBinding>(
+        binding = DataBindingUtil.setContentView<ActivityDetailuserBinding>(
                 this, R.layout.activity_detailuser
         ).apply {
             setSupportActionBar(toolbar)
@@ -54,5 +62,20 @@ class DetailUserActivity : AppCompatActivity() {
 
     private fun initObservers() {
         viewModel.error.observe(this) { showSnackbar(it) }
+        viewModel.events.observe(this) { flow ->
+            val adapter = DetailUserAdapter(viewModel).apply {
+                addLoadStateListener { state ->
+                    viewModel.setEventEmpty(
+                        state.refresh is LoadState.NotLoading && itemCount == 1 // Header Count
+                    )
+                }
+            }
+            binding.rvContainer.adapter = adapter.withLoadStateFooter(
+                PagingLoadStateAdapter(adapter::retry)
+            )
+            lifecycleScope.launch {
+                flow.collectLatest { adapter.submitData(it) }
+            }
+        }
     }
 }
