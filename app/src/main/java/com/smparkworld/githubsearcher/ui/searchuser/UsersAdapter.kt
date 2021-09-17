@@ -1,33 +1,54 @@
 package com.smparkworld.githubsearcher.ui.searchuser
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.smparkworld.githubsearcher.R
 import com.smparkworld.githubsearcher.databinding.ItemSearchuserAdapterBinding
 import com.smparkworld.githubsearcher.model.User
+import com.smparkworld.githubsearcher.model.UserModel
 
 class UsersAdapter(
     private val onClickItem: (User) -> Unit
-) : PagingDataAdapter<User, UsersAdapter.UserViewHolder>(User.DIFF_CALLBACK) {
+) : PagingDataAdapter<UserModel, RecyclerView.ViewHolder>(UserModel.DIFF_CALLBACK) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = UserViewHolder(
-        ItemSearchuserAdapterBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false  // 이부분 parent, false 제거해보기
-        ), onClickItem
-    )
+    override fun getItemViewType(position: Int) =
+            when(getItem(position)) {
+                is UserModel.Item -> R.layout.item_searchuser_adapter
+                else              -> R.layout.item_searchuser_adapter_separator
+            }
 
-    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+            when(viewType) {
+                R.layout.item_searchuser_adapter -> {
+                    UserViewHolder(
+                        ItemSearchuserAdapterBinding.inflate(
+                            LayoutInflater.from(parent.context), parent, false
+                        ), onClickItem
+                    )
+                }
+                else -> {
+                    SeparatorViewHolder(
+                        LayoutInflater.from(parent.context).inflate(
+                            R.layout.item_searchuser_adapter_separator, parent, false
+                        )
+                    )
+                }
+            }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
-        if (item != null) {
-            holder.bind(item)
+        if (item is UserModel.Item && holder is UserViewHolder) {
+            holder.bind(item.user)
         }
     }
 
     class UserViewHolder(
         private val binding: ItemSearchuserAdapterBinding,
         private val onClickItem: (User) -> Unit
-    ): RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(user: User) {
             binding.onClick = onClickItem
@@ -35,4 +56,6 @@ class UsersAdapter(
             binding.executePendingBindings()
         }
     }
+
+    class SeparatorViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }

@@ -13,13 +13,25 @@ data class User(
 
     @SerializedName("bio")
     val bio: String? = null
-) {
+)
+
+sealed class UserModel {
+
+    data class Item(val user: User) : UserModel()
+    object Separator : UserModel()
+
     companion object {
-        val DIFF_CALLBACK = object: DiffUtil.ItemCallback<User>() {
-            override fun areItemsTheSame(oldItem: User, newItem: User) =
-                oldItem.name == newItem.name
-            override fun areContentsTheSame(oldItem: User, newItem: User) =
-                oldItem == newItem
+        val DIFF_CALLBACK = object: DiffUtil.ItemCallback<UserModel>() {
+
+            override fun areItemsTheSame(oldItem: UserModel, newItem: UserModel) =
+                    if (oldItem is Item && newItem is Item) {
+                        oldItem.user.name == newItem.user.name
+                    } else false
+
+            override fun areContentsTheSame(oldItem: UserModel, newItem: UserModel) =
+                    if (oldItem is Item && newItem is Item) {
+                        oldItem == newItem
+                    } else false
         }
     }
 }
