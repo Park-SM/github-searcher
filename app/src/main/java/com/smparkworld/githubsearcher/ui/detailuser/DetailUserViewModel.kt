@@ -1,6 +1,5 @@
 package com.smparkworld.githubsearcher.ui.detailuser
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.smparkworld.githubsearcher.R
 import com.smparkworld.githubsearcher.data.repository.RepoRepository
@@ -41,7 +40,6 @@ class DetailUserViewModel @Inject constructor(
         viewModelScope.launch {
             _loading.value = true
 
-            Log.d("Test!!", "Here!")
             listOf(
                 async { userRepository.getUserById(uid) },
                 async { repoRepository.getRepoById(uid) }

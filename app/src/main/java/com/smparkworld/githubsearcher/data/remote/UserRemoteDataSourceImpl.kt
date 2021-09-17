@@ -1,7 +1,7 @@
 package com.smparkworld.githubsearcher.data.remote
 
 import com.smparkworld.githubsearcher.data.remote.api.SearchUsersResponse
-import com.smparkworld.githubsearcher.data.remote.api.UserAPI
+import com.smparkworld.githubsearcher.data.remote.api.GithubAPI
 import com.smparkworld.githubsearcher.model.Result
 import com.smparkworld.githubsearcher.model.Result.Success
 import com.smparkworld.githubsearcher.model.Result.Error
@@ -10,19 +10,18 @@ import retrofit2.HttpException
 import javax.inject.Inject
 
 class UserRemoteDataSourceImpl @Inject constructor(
-    private val userAPI: UserAPI
+        private val githubAPI: GithubAPI
 ) : UserRemoteDataSource {
 
-    // Retrofit2에서 자체적으로 스레드를 관리하기 때문에 Dispatchers.IO로 변경하지 않아도 됨.
     override suspend fun searchById(uid: String, size:Int, page: Int): Result<SearchUsersResponse> {
         return try {
-            val response = userAPI.searchById(uid, size, page)
+            val response = githubAPI.searchUsersById(uid, size, page)
             if (response.isSuccessful) {
                 val body = response.body()
                 if (body != null) {
                     Success(body)
                 } else {
-                    throw NullPointerException("[UserAPI] searchById API response body is null.")
+                    throw NullPointerException("[GithubAPI] searchUsersById API response body is null.")
                 }
             } else {
                 throw HttpException(response)
@@ -34,13 +33,13 @@ class UserRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getById(uid: String): Result<User> {
         return try {
-            val response = userAPI.getById(uid)
+            val response = githubAPI.getUserById(uid)
             if (response.isSuccessful) {
                 val body = response.body()
                 if (body != null) {
                     Success(body)
                 } else {
-                    throw NullPointerException("[UserAPI] findById API response body is null.")
+                    throw NullPointerException("[GithubAPI] findUserById API response body is null.")
                 }
             } else {
                 throw HttpException(response)

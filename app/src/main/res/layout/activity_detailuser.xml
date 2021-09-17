@@ -75,12 +75,12 @@
                         android:layout_height="wrap_content"
                         tools:layout="@layout/fragment_detailuser_repo" />
 
-                    <fragment
-                        android:id="@+id/frag_event"
-                        android:name="com.smparkworld.githubsearcher.ui.detailuser.EventFragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        tools:layout="@layout/fragment_detailuser_event" />
+<!--                    <fragment-->
+<!--                        android:id="@+id/frag_event"-->
+<!--                        android:name="com.smparkworld.githubsearcher.ui.detailuser.EventFragment"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        tools:layout="@layout/fragment_detailuser_event" />-->
 
                 </LinearLayout>
 
