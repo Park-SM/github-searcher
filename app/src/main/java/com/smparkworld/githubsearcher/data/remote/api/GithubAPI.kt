@@ -11,9 +11,9 @@ interface GithubAPI {
 
     @GET("/search/users")
     suspend fun searchUsersById(
-        @Query("q") id: String,
-        @Query("per_page") size: Int,
-        @Query("page") page: Int
+            @Query("q") id: String,
+            @Query("per_page") size: Int,
+            @Query("page") page: Int
     ): Response<SearchUsersResponse>
 
     @GET("/users/{uid}")
@@ -25,4 +25,11 @@ interface GithubAPI {
     suspend fun getReposById(
             @Path("uid") uid: String
     ): Response<List<Repo>>
+
+    @GET("/users/{uid}/events")
+    suspend fun getEventsById (
+            @Path("uid") uid: String,
+            @Query("per_page") size: Int,
+            @Query("page") page: Int
+    ): Response<UserEventsResponse>
 }

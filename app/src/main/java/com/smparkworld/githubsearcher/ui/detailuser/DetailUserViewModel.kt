@@ -2,6 +2,7 @@ package com.smparkworld.githubsearcher.ui.detailuser
 
 import androidx.lifecycle.*
 import com.smparkworld.githubsearcher.R
+import com.smparkworld.githubsearcher.data.repository.EventRepository
 import com.smparkworld.githubsearcher.data.repository.RepoRepository
 import com.smparkworld.githubsearcher.data.repository.UserRepository
 import com.smparkworld.githubsearcher.model.Repo
@@ -14,7 +15,8 @@ import javax.inject.Inject
 
 class DetailUserViewModel @Inject constructor(
         private val userRepository: UserRepository,
-        private val repoRepository: RepoRepository
+        private val repoRepository: RepoRepository,
+        private val eventRepository: EventRepository
 ) : ViewModel() {
 
     private val _error = MutableLiveData<Int>()

@@ -11,3 +11,24 @@ data class SearchUsersResponse(
     @SerializedName("items")
     val items: List<User>
 )
+
+data class UserEventsResponse(
+
+        @SerializedName("type")
+        val type: String,
+
+        @SerializedName("actor")
+        val actor: User,
+
+        @SerializedName("repo")
+        val repo: EventTargetRepo
+)
+
+data class EventTargetRepo(
+
+        @SerializedName("name")
+        val name: String,
+
+        @SerializedName("url")
+        val url: String
+)
