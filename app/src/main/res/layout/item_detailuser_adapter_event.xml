@@ -11,10 +11,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="@dimen/itemDetailUserEvent_marginTopBottom"
         android:layout_margin="@dimen/activityDetailUser_fragPadding"
-        android:layout_marginBottom="5dp"
-        android:elevation="3dp">
+        android:layout_marginBottom="@dimen/itemDetailUserEvent_marginTopBottom"
+        android:elevation="@dimen/activityDetailUser_itemElevation">
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -30,7 +30,7 @@
                 android:gravity="center_vertical"
                 android:text="@{event.type}"
                 android:textColor="@color/black"
-                android:textSize="16dp"
+                android:textSize="@dimen/itemDetailUserEvent_typeTextSize"
                 android:textStyle="bold" />
 
             <TextView
@@ -40,10 +40,10 @@
                 android:text="  by " />
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="7dp"
-                android:layout_marginEnd="7dp"
+                android:layout_width="@dimen/itemDetailUserEvent_avatarSize"
+                android:layout_height="@dimen/itemDetailUserEvent_avatarSize"
+                android:layout_marginStart="@dimen/itemDetailUserEvent_avatarMargin"
+                android:layout_marginEnd="@dimen/itemDetailUserEvent_avatarMargin"
                 app:loadCircleImg="@{event.actor.avatarUrl}"/>
 
             <TextView
@@ -53,16 +53,15 @@
                 android:text="@{event.actor.uid}"
                 android:textColor="@color/black"/>
 
-
         </LinearLayout>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:layout_marginStart="7dp"
+            android:layout_marginTop="@dimen/itemDetailUserEvent_repoMarginTop"
+            android:layout_marginStart="@dimen/itemDetailUserEvent_repoMarginLeft"
             android:text="@{event.repo.name}"
-            android:textSize="15dp"
+            android:textSize="@dimen/itemDetailUserEvent_repoTextSize"
             android:textColor="@color/blue"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />

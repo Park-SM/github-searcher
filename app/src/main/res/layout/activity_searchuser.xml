@@ -59,7 +59,7 @@
             android:layout_marginTop="@dimen/activitySearchUser_margin"
             android:layout_marginRight="@dimen/activitySearchUser_margin"
             android:layout_marginLeft="@dimen/activitySearchUser_margin"
-            android:background="@drawable/shape_search_form"
+            android:background="@drawable/shape_elevation_form"
             android:elevation="@dimen/activitySearchUser_searchElevation"
             android:hint="@string/activitySearchUser_searchHint"
             android:padding="@dimen/activitySearchUser_searchPadding"
