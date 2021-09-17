@@ -24,4 +24,17 @@ Github에서 제공하는 OpenAPI를 사용했습니다.<br>
 1. Github 우측 프로필 > `Settings` > 좌측 메뉴의 `Developer Settings` > `Personal access tokens` > `Generate new token` > `repo` 권한과 `user` 권한 선택 후 발급받습니다.
 2. `/app/src/main/java/com/smparkworld/githubsearcher/di/NetworkModule.kt` 파일을 엽니다.
 3. `NetworkModule.kt`파일 18번째 줄의 token 상수에 발급받은 token을 입력합니다.
+
+## 5. Preview
+1. 아이디 검색
+ <img src="https://user-images.githubusercontent.com/47319426/133830269-5ab45ec9-b779-4696-9229-0bec3f5a039c.jpg" width="300">
+
+2. 아이디 검색 결과1
+ <img src="https://user-images.githubusercontent.com/47319426/133830290-83786936-8906-40fc-b2a8-19e270a6439a.jpg" width="300">
+ 
+3. 아이디 검색 결과2
+ <img src="https://user-images.githubusercontent.com/47319426/133830296-6b56bf89-56f5-4efb-b4e8-3731277b89d9.jpg" width="300">
+
+4. 사용자 상세
+ <img src="https://user-images.githubusercontent.com/47319426/133830300-8f45319b-2036-4e10-b4f4-44dc2057650d.jpg" width="300">
  
