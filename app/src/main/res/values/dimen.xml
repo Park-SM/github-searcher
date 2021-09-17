@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ToolBar -->
+    <dimen name="toolbar_logo">50dp</dimen>
+    <dimen name="toolbar_logoPadding">10dp</dimen>
+    <dimen name="toolbar_titleTextSize">18dp</dimen>
+
+    <!-- PagingLoadState -->
+    <dimen name="pagingLoadState_retryBtnMargin">5dp</dimen>
+
+    <!-- SearchUser Activity -->
+    <dimen name="activitySearchUser_margin">7dp</dimen>
+    <dimen name="activitySearchUser_searchPadding">13dp</dimen>
+    <dimen name="activitySearchUser_searchElevation">5dp</dimen>
+    <dimen name="activitySearchUser_searchTextSize">15dp</dimen>
+    <dimen name="activitySearchUser_searchEmptyIcon">50dp</dimen>
+
+    <!-- SearchUser Item -->
+    <dimen name="itemSearchUserAdapter_padding">10dp</dimen>
+    <dimen name="itemSearchUserAdapter_avatarSize">50dp</dimen>
+    <dimen name="itemSearchUserAdapter_avatarMargin">13dp</dimen>
+    <dimen name="itemSearchUserAdapter_nameTextSize">16dp</dimen>
+    <dimen name="itemSearchUserAdapter_errorTextSize">15dp</dimen>
+
+    <!-- DetailUser Activity -->
+    <dimen name="activityDetailUser_fragPadding">10dp</dimen>
+    <dimen name="activityDetailUser_fragContentPadding">10dp</dimen>
+    <dimen name="activityDetailUser_itemElevation">3dp</dimen>
+
+    <!-- DetailUser UserInfo Item -->
+    <dimen name="itemDetailUserInfo_avatarSize">100dp</dimen>
+    <dimen name="itemDetailUserInfo_avatarMargin">10dp</dimen>
+    <dimen name="itemDetailUserInfo_userNameTextSize">19dp</dimen>
+    <dimen name="itemDetailUserInfo_userBioMarginTop">5dp</dimen>
+    <dimen name="itemDetailUserInfo_subtitleMarginTop">15dp</dimen>
+    <dimen name="itemDetailUserInfo_subtitleTextSize">15dp</dimen>
+    <dimen name="itemDetailUserInfo_emptyItemHeight">80dp</dimen>
+    <dimen name="itemDetailUserInfo_repoItemMarginTopBottom">3dp</dimen>
+
+    <!-- DetailUser Repo Item -->
+    <dimen name="itemDetailUserRepo_titleTextSize">16dp</dimen>
+    <dimen name="itemDetailUserRepo_bioMarginTop">7dp</dimen>
+    <dimen name="itemDetailUserRepo_bioTextSize">15dp</dimen>
+    <dimen name="itemDetailUserRepo_btmItemMarginTop">7dp</dimen>
+    <dimen name="itemDetailUserRepo_btmItemTextSize">13dp</dimen>
+    <dimen name="itemDetailUserRepo_btmItemInterval">7dp</dimen>
+
+    <!-- DetailUser event Item -->
+    <dimen name="itemDetailUserEvent_marginTopBottom">5dp</dimen>
+    <dimen name="itemDetailUserEvent_typeTextSize">16dp</dimen>
+    <dimen name="itemDetailUserEvent_avatarSize">30dp</dimen>
+    <dimen name="itemDetailUserEvent_avatarMargin">7dp</dimen>
+    <dimen name="itemDetailUserEvent_repoTextSize">15dp</dimen>
+    <dimen name="itemDetailUserEvent_repoMarginTop">3dp</dimen>
+    <dimen name="itemDetailUserEvent_repoMarginLeft">7dp</dimen>
+</resources>

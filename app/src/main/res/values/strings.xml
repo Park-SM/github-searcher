@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Github Searcher</string>
+
+    <string name="error_failedToConnectNetwork">Github 서비스에 접근할 수 없습니다. 네트워크 상태를 확인해주세요.</string>
+    <string name="error_fatalNetwork">Github API 사용 속도 제한을 초과했습니다.\n잠시 후 다시 시도해주세요.</string>
+
+    <string name="pagingLoadState_retry">재시도</string>
+
+    <!-- SearchUser Activity -->
+    <string name="activitySearchUser_searchHint">검색할 Github ID를 입력해주세요.</string>
+    <string name="activitySearchUser_searchEmpty">검색할 ID를 입력해주세요 : (</string>
+    <string name="activitySearchUser_searchResultEmpty">검색결과가 없습니다.\n다른 Github ID로 검색해주세요 : )</string>
+
+    <!-- DetailUser UserInfo Item -->
+    <string name="itemDetailUserInfo_subtitleRepository">Repositories</string>
+    <string name="itemDetailUserInfo_emptyRepo">아직 저장소가 없습니다.</string>
+    <string name="itemDetailUserInfo_subtitleEvent">Events</string>
+
+
+</resources>
