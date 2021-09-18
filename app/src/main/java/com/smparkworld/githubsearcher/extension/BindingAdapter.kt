@@ -6,6 +6,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.smparkworld.githubsearcher.R
 import com.smparkworld.githubsearcher.model.Repo
 
 @BindingAdapter("onAction")
@@ -19,7 +20,7 @@ fun onAction(view: EditText, done: Function0<Unit>) {
 @BindingAdapter("loadCircleImg")
 fun loadCircleImg(view: ImageView, url: String?) {
     if (url != null) {
-        Glide.with(view).load(url).circleCrop().into(view)
+        Glide.with(view).load(url).placeholder(R.drawable.ic_github_gray).circleCrop().into(view)
     }
 }
 
