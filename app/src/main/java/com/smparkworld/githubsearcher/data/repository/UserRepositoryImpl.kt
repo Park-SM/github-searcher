@@ -2,14 +2,18 @@ package com.smparkworld.githubsearcher.data.repository
 
 import androidx.paging.*
 import com.smparkworld.githubsearcher.data.remote.UserRemoteDataSource
+import com.smparkworld.githubsearcher.di.AppModule.DispatcherIO
 import com.smparkworld.githubsearcher.model.UserModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class UserRepositoryImpl @Inject constructor(
-    private val remoteDataSource: UserRemoteDataSource
+    private val remoteDataSource: UserRemoteDataSource,
+    @DispatcherIO private val ioDispatcher: CoroutineDispatcher
 ) : UserRepository {
 
     override suspend fun searchUserById(uid: String, pageSize: Int) =
@@ -22,6 +26,7 @@ class UserRepositoryImpl @Inject constructor(
               }
         }
 
-    override suspend fun getUserById(uid: String) =
-            remoteDataSource.getById(uid)
+    override suspend fun getUserById(uid: String) = withContext(ioDispatcher) {
+        remoteDataSource.getById(uid)
+    }
 }

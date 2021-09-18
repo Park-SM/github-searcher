@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.DiffUtil
 
 sealed class DetailUserUIModel {
 
-    object Header: DetailUserUIModel()
+    data class Header(val user: User, val repos: List<Repo>): DetailUserUIModel()
     data class Item(val event: Event): DetailUserUIModel()
     object Separator: DetailUserUIModel()
 

@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface EventRepository {
 
-    suspend fun getEventsById(uid: String, pageSize: Int): Flow<PagingData<DetailUserUIModel>>
+    suspend fun getEventsById(header: DetailUserUIModel.Header, uid: String, pageSize: Int): Flow<PagingData<DetailUserUIModel>>
 }

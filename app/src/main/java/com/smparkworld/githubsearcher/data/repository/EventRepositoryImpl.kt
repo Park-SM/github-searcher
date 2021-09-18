@@ -10,12 +10,12 @@ class EventRepositoryImpl @Inject constructor(
         private val remoteDataSource: EventRemoteDataSource
 ): EventRepository {
 
-    override suspend fun getEventsById(uid: String, pageSize: Int) =
+    override suspend fun getEventsById(header: DetailUserUIModel.Header, uid: String, pageSize: Int) =
             Pager(PagingConfig(pageSize = pageSize)) {
                 EventPagingSource(remoteDataSource, uid, pageSize)
             }.flow.map {
                 it.map { item -> DetailUserUIModel.Item(item) as DetailUserUIModel}
-                  .insertHeaderItem(item = DetailUserUIModel.Header)
+                  .insertHeaderItem(item = header)
                   .insertSeparators { before, after ->
                       if (before is DetailUserUIModel.Item && after is DetailUserUIModel.Item) {
                           DetailUserUIModel.Separator
