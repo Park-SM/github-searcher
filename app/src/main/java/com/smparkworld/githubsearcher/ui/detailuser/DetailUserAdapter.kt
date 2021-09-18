@@ -11,9 +11,8 @@ import com.smparkworld.githubsearcher.databinding.ItemDetailuserAdapterUserinfoB
 import com.smparkworld.githubsearcher.model.Event
 import com.smparkworld.githubsearcher.model.DetailUserUIModel
 
-class DetailUserAdapter(
-    private val viewModel: DetailUserViewModel,
-) : PagingDataAdapter<DetailUserUIModel, RecyclerView.ViewHolder>(DetailUserUIModel.DIFF_CALLBACK) {
+class DetailUserAdapter
+    : PagingDataAdapter<DetailUserUIModel, RecyclerView.ViewHolder>(DetailUserUIModel.DIFF_CALLBACK) {
 
     override fun getItemViewType(position: Int) =
             when(getItem(position)) {
@@ -50,7 +49,7 @@ class DetailUserAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = getItem(position)) {
             is DetailUserUIModel.Header -> if (holder is UserInfoViewHolder) {
-                holder.bind(viewModel)
+                holder.bind(item)
             }
             is DetailUserUIModel.Item   -> if (holder is EventViewHolder) {
                 holder.bind(item.event)
@@ -63,8 +62,9 @@ class DetailUserAdapter(
             private val binding: ItemDetailuserAdapterUserinfoBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(vm: DetailUserViewModel) {
-            binding.vm = vm
+        fun bind(header: DetailUserUIModel.Header) {
+            binding.user  = header.user
+            binding.repos = header.repos
             binding.rvRepos.adapter = RepoAdapter()
             binding.executePendingBindings()
         }

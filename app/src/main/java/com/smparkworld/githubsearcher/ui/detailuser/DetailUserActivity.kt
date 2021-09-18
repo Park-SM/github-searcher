@@ -17,7 +17,6 @@ import com.smparkworld.githubsearcher.ui.detailuser.di.DetailUserComponent
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.lang.RuntimeException
-import java.lang.ref.WeakReference
 import javax.inject.Inject
 
 class DetailUserActivity : AppCompatActivity() {
@@ -63,7 +62,8 @@ class DetailUserActivity : AppCompatActivity() {
     private fun initObservers() {
         viewModel.error.observe(this) { showSnackbar(it) }
         viewModel.events.observe(this) { flow ->
-            val adapter = DetailUserAdapter(viewModel).apply {
+
+            val adapter = DetailUserAdapter().apply {
                 addLoadStateListener { state ->
                     viewModel.setEventEmpty(
                         state.refresh is LoadState.NotLoading && itemCount == 1 // Header Count

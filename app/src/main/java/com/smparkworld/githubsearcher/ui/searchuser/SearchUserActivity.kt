@@ -50,22 +50,18 @@ class SearchUserActivity : AppCompatActivity() {
         viewModel.error.observe(this) { showSnackbar(it) }
         viewModel.users.observe(this) { flow ->
 
+            val adapter = UsersAdapter(::onClickItem).apply {
+                addLoadStateListener { state ->
+                    viewModel.setUsersLoadState(
+                        if (state.refresh is LoadState.NotLoading && itemCount == 0) null else state
+                    )
+                }
+            }
+            binding.rvUsers.adapter = adapter.withLoadStateFooter(
+                PagingLoadStateAdapter(adapter::retry)
+            )
             lifecycleScope.launch {
-                val adapter = UsersAdapter(::onClickItem).apply {
-                    addLoadStateListener { state ->
-                        if (state.refresh is LoadState.NotLoading && itemCount == 0) {
-                            viewModel.setUsersLoadState(null)
-                        } else {
-                            viewModel.setUsersLoadState(state)
-                        }
-                    }
-                }
-                binding.rvUsers.adapter = adapter.withLoadStateFooter(
-                    PagingLoadStateAdapter(adapter::retry)
-                )
-                flow.collectLatest {
-                    adapter.submitData(it)
-                }
+                flow.collectLatest { adapter.submitData(it) }
             }
         }
     }

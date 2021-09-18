@@ -5,9 +5,13 @@
 
     <data>
         <import type="android.view.View"/>
+        <import type="com.smparkworld.githubsearcher.model.Repo"/>
         <variable
-            name="vm"
-            type="com.smparkworld.githubsearcher.ui.detailuser.DetailUserViewModel" />
+            name="user"
+            type="com.smparkworld.githubsearcher.model.User" />
+        <variable
+            name="repos"
+            type="java.util.List&lt;Repo>" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +25,7 @@
             android:layout_marginLeft="@dimen/itemDetailUserInfo_avatarMargin"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:loadCircleImg="@{vm.user.avatarUrl}" />
+            app:loadCircleImg="@{user.avatarUrl}" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -37,7 +41,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{vm.user.getUidAndName}"
+                android:text="@{user.getUidAndName}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/itemDetailUserInfo_userNameTextSize" />
 
@@ -45,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/itemDetailUserInfo_userBioMarginTop"
-                android:text="@{vm.user.bio}" />
+                android:text="@{user.bio}" />
 
         </LinearLayout>
 
@@ -82,7 +86,7 @@
                 android:text="@string/itemDetailUserInfo_emptyRepo"
                 android:textColor="@color/gray"
                 android:textStyle="bold"
-                android:visibility="@{vm.repos.size() == 0 ? View.VISIBLE : View.GONE}" />
+                android:visibility="@{repos.size() == 0 ? View.VISIBLE : View.GONE}" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvRepos"
@@ -92,9 +96,9 @@
                 android:clipToPadding="false"
                 android:overScrollMode="never"
                 android:paddingBottom="5dp"
-                android:visibility="@{vm.repos.size() == 0 ? View.GONE : View.VISIBLE}"
+                android:visibility="@{repos.size() == 0 ? View.GONE : View.VISIBLE}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:submitList="@{vm.repos}"
+                app:submitList="@{repos}"
                 tools:listitem="@layout/item_detailuser_adapter_repo" />
 
         </FrameLayout>
