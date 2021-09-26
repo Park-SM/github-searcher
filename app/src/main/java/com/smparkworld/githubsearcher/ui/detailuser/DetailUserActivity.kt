@@ -10,7 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.smparkworld.githubsearcher.GithubSearcherApp
 import com.smparkworld.githubsearcher.R
-import com.smparkworld.githubsearcher.data.repository.PagingLoadStateAdapter
 import com.smparkworld.githubsearcher.databinding.ActivityDetailuserBinding
 import com.smparkworld.githubsearcher.extension.showSnackbar
 import com.smparkworld.githubsearcher.ui.detailuser.di.DetailUserComponent
@@ -66,13 +65,12 @@ class DetailUserActivity : AppCompatActivity() {
             val adapter = DetailUserAdapter().apply {
                 addLoadStateListener { state ->
                     viewModel.setEventEmpty(
-                        state.refresh is LoadState.NotLoading && itemCount == 1 // Header Count
+                        // User 정보를 보여주는 Header가 있기 때문에 itemCount == 1로 Event가 비어있는지 확인
+                        if (state.refresh is LoadState.NotLoading && itemCount == 1) null else state
                     )
                 }
+                binding.rvContainer.adapter = withLoadStateFooter(EventLoadStateAdapter(::retry))
             }
-            binding.rvContainer.adapter = adapter.withLoadStateFooter(
-                PagingLoadStateAdapter(adapter::retry)
-            )
             lifecycleScope.launch {
                 flow.collectLatest { adapter.submitData(it) }
             }
