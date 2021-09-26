@@ -1,4 +1,4 @@
-package com.smparkworld.githubsearcher.data.repository
+package com.smparkworld.githubsearcher.ui.detailuser
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.smparkworld.githubsearcher.R
 import com.smparkworld.githubsearcher.databinding.ItemSearchuserLoadstateAdatperBinding
 
-class PagingLoadStateAdapter(
+class EventLoadStateAdapter(
     private val retry: () -> Unit
-) : LoadStateAdapter<PagingLoadStateAdapter.StateViewHolder>() {
+) : LoadStateAdapter<EventLoadStateAdapter.StateViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState) = StateViewHolder(
         ItemSearchuserLoadstateAdatperBinding.inflate(

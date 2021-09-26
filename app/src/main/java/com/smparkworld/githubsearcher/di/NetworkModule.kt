@@ -7,6 +7,7 @@ import dagger.Provides
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
@@ -15,7 +16,7 @@ object NetworkModule {
 
     // 적은 제한의 Github API를 호출하기 원하시면
     // User와 Repo 권한을 허가한 Personal Access Token을 입력해서 사용해주세요.
-    private val token  = ""
+    private val token  = "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"
     private val accept = "application/vnd.github.v3+json"
 
     private fun getClient(): OkHttpClient {
@@ -41,6 +42,7 @@ object NetworkModule {
     fun provideRetrofit(): Retrofit =
         Retrofit.Builder().client(getClient())
             .baseUrl(BuildConfig.SERVER_URL)
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

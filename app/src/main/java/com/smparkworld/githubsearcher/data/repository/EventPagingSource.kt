@@ -1,38 +1,31 @@
 package com.smparkworld.githubsearcher.data.repository
 
-import androidx.paging.PagingSource
+import android.util.Log
 import androidx.paging.PagingState
+import androidx.paging.rxjava3.RxPagingSource
 import com.smparkworld.githubsearcher.data.remote.EventRemoteDataSource
 import com.smparkworld.githubsearcher.model.Event
-import com.smparkworld.githubsearcher.model.Result
-import java.lang.Exception
+import io.reactivex.rxjava3.core.Single
 
 class EventPagingSource(
         private val remoteDataSource: EventRemoteDataSource,
         private val uid: String,
         private val pageSize: Int
-) : PagingSource<Int, Event>() {
+) : RxPagingSource<Int, Event>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Event> {
-        try {
-            val nextPage = params.key ?: 1
+    override fun loadSingle(params: LoadParams<Int>): Single<LoadResult<Int, Event>> {
+        val nextPage = params.key ?: 1
 
-            val result = remoteDataSource.getById(uid, pageSize, nextPage)
-            if (result is Result.Success) {
-
-                val isAvailable = result.data.isNotEmpty()
-                return LoadResult.Page(
-                    data = result.data,
-                    prevKey = null,
-                    nextKey = if (isAvailable) nextPage + 1 else null
-                )
-            } else {
-                throw (result as Result.Error).e
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return LoadResult.Error(e)
-        }
+        return remoteDataSource.getById(uid, pageSize, nextPage)
+                .map<LoadResult<Int, Event>> { list ->
+                    val isAvailable = list.isNotEmpty()
+                    LoadResult.Page(
+                        data = list,
+                        prevKey = null,
+                        nextKey = if (isAvailable) nextPage + 1 else null
+                    )
+                }
+                .onErrorReturn { LoadResult.Error(it) }
     }
 
     override fun getRefreshKey(state: PagingState<Int, Event>): Int? {

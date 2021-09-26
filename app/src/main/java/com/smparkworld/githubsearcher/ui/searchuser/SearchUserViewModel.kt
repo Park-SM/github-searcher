@@ -3,20 +3,17 @@ package com.smparkworld.githubsearcher.ui.searchuser
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.paging.CombinedLoadStates
-import androidx.paging.LoadState
-import androidx.paging.PagingData
+import androidx.paging.*
 import com.smparkworld.githubsearcher.R
 import com.smparkworld.githubsearcher.data.repository.UserRepository
-import com.smparkworld.githubsearcher.model.UserModel
+import com.smparkworld.githubsearcher.model.UsersUiModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.map
 import java.io.IOException
 import javax.inject.Inject
 
 class SearchUserViewModel @Inject constructor(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
 ) : ViewModel() {
 
     private val _error = MutableLiveData<Int>()
@@ -28,19 +25,27 @@ class SearchUserViewModel @Inject constructor(
     private val _isEmpty = MutableLiveData<Boolean>()
     val isEmpty: LiveData<Boolean> = _isEmpty
 
-    private val _users = MutableLiveData<Flow<PagingData<UserModel>>>()
-    val users: LiveData<Flow<PagingData<UserModel>>> = _users
+    private val _users = MutableLiveData<Flow<PagingData<UsersUiModel>>>()
+    val users: LiveData<Flow<PagingData<UsersUiModel>>> = _users
 
     val searchId = MutableLiveData<String>()
 
     fun search() {
-        if (searchId.value.isNullOrBlank()) {
+        val search = searchId.value
+        if (search.isNullOrBlank()) {
             _error.value = R.string.activitySearchUser_searchEmpty
             return
         }
-        val search = searchId.value!!
-        viewModelScope.launch {
-            _users.value = userRepository.searchUserById(search, 50)
+
+        _users.value = Pager(
+            PagingConfig(pageSize = 50)
+        ) {
+            userRepository.searchUserById(search, 50)
+        }.flow.map {
+            it.map { item -> UsersUiModel.Item(item) }
+                .insertSeparators { before, after ->
+                    if (before is UsersUiModel.Item && after is UsersUiModel.Item) UsersUiModel.Separator else null
+                }
         }
     }
 

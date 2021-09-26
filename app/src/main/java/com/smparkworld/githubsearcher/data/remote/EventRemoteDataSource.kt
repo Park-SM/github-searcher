@@ -1,9 +1,9 @@
 package com.smparkworld.githubsearcher.data.remote
 
 import com.smparkworld.githubsearcher.model.Event
-import com.smparkworld.githubsearcher.model.Result
+import io.reactivex.rxjava3.core.Single
 
 interface EventRemoteDataSource {
 
-    suspend fun getById(uid: String, size: Int, page: Int): Result<List<Event>>
+    fun getById(uid: String, size: Int, page: Int): Single<List<Event>>
 }

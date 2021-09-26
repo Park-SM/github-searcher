@@ -19,12 +19,6 @@ abstract class AppModuleBinds {
     abstract fun bindUserRemoteDataSource(userRemoteDataSourceImpl: UserRemoteDataSourceImpl): UserRemoteDataSource
 
     @Binds
-    abstract fun bindRepoRepository(repoRepositoryImpl: RepoRepositoryImpl): RepoRepository
-
-    @Binds
-    abstract fun bindRepoRemoteDataSource(repoRemoteDataSourceImpl: RepoRemoteDataSourceImpl): RepoRemoteDataSource
-
-    @Binds
     abstract fun bindEventRepository(eventRepositoryImpl: EventRepositoryImpl): EventRepository
 
     @Binds

@@ -1,12 +1,12 @@
 package com.smparkworld.githubsearcher.data.remote
 
 import com.smparkworld.githubsearcher.data.remote.api.SearchUsersResponse
-import com.smparkworld.githubsearcher.model.Result
 import com.smparkworld.githubsearcher.model.User
+import io.reactivex.rxjava3.core.Single
 
 interface UserRemoteDataSource {
 
-    suspend fun searchById(uid: String, size: Int, page: Int): Result<SearchUsersResponse>
+    fun searchById(uid: String, size: Int, page: Int): Single<SearchUsersResponse>
 
-    suspend fun getById(uid: String): Result<User>
+    fun getOverviewById(uid: String, repoLimit: Int): Single<User>
 }
