@@ -4,19 +4,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.CombinedLoadStates
-import androidx.paging.LoadState
-import androidx.paging.PagingData
+import androidx.paging.*
 import com.smparkworld.githubsearcher.R
 import com.smparkworld.githubsearcher.data.repository.UserRepository
 import com.smparkworld.githubsearcher.model.UserModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.io.IOException
 import javax.inject.Inject
 
 class SearchUserViewModel @Inject constructor(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
 ) : ViewModel() {
 
     private val _error = MutableLiveData<Int>()
@@ -34,13 +33,24 @@ class SearchUserViewModel @Inject constructor(
     val searchId = MutableLiveData<String>()
 
     fun search() {
-        if (searchId.value.isNullOrBlank()) {
+        val search = searchId.value
+        if (search.isNullOrBlank()) {
             _error.value = R.string.activitySearchUser_searchEmpty
             return
         }
-        val search = searchId.value!!
+
         viewModelScope.launch {
-            _users.value = userRepository.searchUserById(search, 50)
+
+            _users.value = Pager(
+                PagingConfig(pageSize = 50)
+            ) {
+                userRepository.searchUserById(search, 50)
+            }.flow.map {
+                it.map { item -> UserModel.Item(item) }
+                    .insertSeparators { before, after ->
+                        if (before is UserModel.Item && after is UserModel.Item) UserModel.Separator else null
+                    }
+            }
         }
     }
 

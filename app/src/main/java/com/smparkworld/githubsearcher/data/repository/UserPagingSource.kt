@@ -1,39 +1,32 @@
 package com.smparkworld.githubsearcher.data.repository
 
-import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import androidx.paging.rxjava3.RxPagingSource
 import com.smparkworld.githubsearcher.data.remote.UserRemoteDataSource
-import com.smparkworld.githubsearcher.model.Result.Success
-import com.smparkworld.githubsearcher.model.Result.Error
 import com.smparkworld.githubsearcher.model.User
-import java.lang.Exception
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class UserPagingSource(
     private val remoteDataSource: UserRemoteDataSource,
     private val query: String,
     private val pageSize: Int
-) : PagingSource<Int, User>() {
+) : RxPagingSource<Int, User>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, User> {
-        try {
-            val nextPage = params.key ?: 1
+    override fun loadSingle(params: LoadParams<Int>): Single<LoadResult<Int, User>> {
+        val nextPage = params.key ?: 1
 
-            val result = remoteDataSource.searchById(query, pageSize, nextPage)
-            if (result is Success) {
-
-                val isAvailable = result.data.totalCount > pageSize * nextPage
-                return LoadResult.Page(
-                    data = result.data.items,
+        return remoteDataSource.searchById(query, pageSize, nextPage)
+            .subscribeOn(Schedulers.io())
+            .map<LoadResult<Int, User>> {
+                val isAvailable = it.totalCount > pageSize * nextPage
+                LoadResult.Page(
+                    data = it.items,
                     prevKey = null,
                     nextKey = if (isAvailable) nextPage + 1 else null
                 )
-            } else {
-                throw (result as Error).e
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return LoadResult.Error(e)
-        }
+            .onErrorReturn { LoadResult.Error(it) }
     }
 
     override fun getRefreshKey(state: PagingState<Int, User>): Int? {

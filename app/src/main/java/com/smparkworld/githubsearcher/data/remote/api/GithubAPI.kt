@@ -3,6 +3,7 @@ package com.smparkworld.githubsearcher.data.remote.api
 import com.smparkworld.githubsearcher.model.Event
 import com.smparkworld.githubsearcher.model.Repo
 import com.smparkworld.githubsearcher.model.User
+import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -11,16 +12,16 @@ import retrofit2.http.Query
 interface GithubAPI {
 
     @GET("/search/users")
-    suspend fun searchUsersById(
+    fun searchUsersById(
             @Query("q") id: String,
             @Query("per_page") size: Int,
             @Query("page") page: Int
-    ): Response<SearchUsersResponse>
+    ): Single<SearchUsersResponse>
 
     @GET("/users/{uid}")
-    suspend fun getUserById(
+    fun getUserById(
             @Path("uid") uid: String
-    ): Response<User>
+    ): Single<User>
 
     @GET("/users/{uid}/repos")
     suspend fun getReposById(

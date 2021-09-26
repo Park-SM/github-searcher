@@ -9,6 +9,7 @@ import com.smparkworld.githubsearcher.data.repository.UserRepository
 import com.smparkworld.githubsearcher.model.*
 import com.smparkworld.githubsearcher.model.Result.Success
 import com.smparkworld.githubsearcher.model.Result.Error
+import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.Flow
@@ -41,6 +42,7 @@ class DetailUserViewModel @Inject constructor(
 
         viewModelScope.launch {
             _loading.value = true
+
 
             listOf(
                 async { userRepository.getUserById(uid) },

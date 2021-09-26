@@ -72,9 +72,10 @@ dependencies {
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
     // Paging3
-    implementation "androidx.paging:paging-runtime-ktx:3.0.1"
+    implementation "androidx.paging:paging-runtime:3.0.1"
+    implementation "androidx.paging:paging-rxjava3:3.0.1"
 
-    // rx
+    // RxJava3
     implementation 'io.reactivex.rxjava3:rxjava:3.1.1'
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
