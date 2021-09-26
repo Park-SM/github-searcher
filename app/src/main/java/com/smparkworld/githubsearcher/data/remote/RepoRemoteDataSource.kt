@@ -1,9 +1,9 @@
 package com.smparkworld.githubsearcher.data.remote
 
 import com.smparkworld.githubsearcher.model.Repo
-import com.smparkworld.githubsearcher.model.Result
+import io.reactivex.rxjava3.core.Single
 
 interface RepoRemoteDataSource {
 
-    suspend fun getRepoById(uid: String): Result<List<Repo>>
+    fun getRepoById(uid: String): Single<List<Repo>>
 }

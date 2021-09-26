@@ -1,18 +1,29 @@
 package com.smparkworld.githubsearcher.ui.detailuser
 
 import androidx.lifecycle.*
-import androidx.paging.PagingData
+import androidx.paging.*
 import com.smparkworld.githubsearcher.R
+import com.smparkworld.githubsearcher.data.repository.EventPagingSource
 import com.smparkworld.githubsearcher.data.repository.EventRepository
 import com.smparkworld.githubsearcher.data.repository.RepoRepository
 import com.smparkworld.githubsearcher.data.repository.UserRepository
 import com.smparkworld.githubsearcher.model.*
 import com.smparkworld.githubsearcher.model.Result.Success
 import com.smparkworld.githubsearcher.model.Result.Error
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.functions.Consumer
+import io.reactivex.rxjava3.kotlin.subscribeBy
+import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import org.reactivestreams.Subscriber
 import javax.inject.Inject
 
 class DetailUserViewModel @Inject constructor(
@@ -39,28 +50,35 @@ class DetailUserViewModel @Inject constructor(
     fun loadUser(uid: String) {
         this.uid = uid
 
-        viewModelScope.launch {
-            _loading.value = true
-
-            listOf(
-                async { userRepository.getUserById(uid) },
-                async { repoRepository.getRepoById(uid) }
-            ).awaitAll().let { results ->
-                val userResult  = results[0] as Result<User>
-                val reposResult = results[1] as Result<List<Repo>>
-
-                if (userResult is Success && reposResult is Success) {
-                    val user  = userResult.data
-                    val repos = reposResult.data
-                    _events.value = eventRepository.getEventsById(DetailUserUIModel.Header(user, repos), uid, 50)
-                } else {
+        _loading.value = true
+        Single.zip(
+                userRepository.getUserById(uid),
+                repoRepository.getRepoById(uid, 3),
+                { user, repos -> DetailUserUIModel.Header(user, repos) }
+            )
+            .observeOn(AndroidSchedulers.mainThread())
+            .doFinally { _loading.value = false }
+            .subscribe(
+                { header ->
+                    _events.value = Pager(
+                        PagingConfig(pageSize = 50)
+                    ) {
+                        eventRepository.getEventsById(uid, 50)
+                    }.flow.map {
+                        it.map { item -> DetailUserUIModel.Item(item) as DetailUserUIModel}
+                            .insertHeaderItem(item = header)
+                            .insertSeparators { before, after ->
+                                if (before is DetailUserUIModel.Item && after is DetailUserUIModel.Item) {
+                                    DetailUserUIModel.Separator
+                                } else null
+                            }
+                    }
+                },
+                { error ->
                     _error.value = R.string.error_failedToConnectNetwork
-                    (userResult  as? Error)?.printStackTrace()
-                    (reposResult as? Error)?.printStackTrace()
+                    error.printStackTrace()
                 }
-                _loading.value = false
-            }
-        }
+            )
     }
 
     fun setEventEmpty(isEmpty: Boolean) {

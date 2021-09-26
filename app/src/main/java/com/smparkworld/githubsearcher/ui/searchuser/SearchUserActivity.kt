@@ -56,10 +56,9 @@ class SearchUserActivity : AppCompatActivity() {
                         if (state.refresh is LoadState.NotLoading && itemCount == 0) null else state
                     )
                 }
+                binding.rvUsers.adapter = withLoadStateFooter(PagingLoadStateAdapter(::retry))
             }
-            binding.rvUsers.adapter = adapter.withLoadStateFooter(
-                PagingLoadStateAdapter(adapter::retry)
-            )
+
             lifecycleScope.launch {
                 flow.collectLatest { adapter.submitData(it) }
             }

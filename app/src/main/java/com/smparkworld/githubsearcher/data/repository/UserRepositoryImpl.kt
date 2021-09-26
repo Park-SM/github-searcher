@@ -1,32 +1,17 @@
 package com.smparkworld.githubsearcher.data.repository
 
-import androidx.paging.*
 import com.smparkworld.githubsearcher.data.remote.UserRemoteDataSource
-import com.smparkworld.githubsearcher.di.AppModule.DispatcherIO
-import com.smparkworld.githubsearcher.model.UserModel
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class UserRepositoryImpl @Inject constructor(
     private val remoteDataSource: UserRemoteDataSource,
-    @DispatcherIO private val ioDispatcher: CoroutineDispatcher
 ) : UserRepository {
 
-    override suspend fun searchUserById(uid: String, pageSize: Int) =
-        Pager(PagingConfig(pageSize = pageSize)) {
+    override fun searchUserById(uid: String, pageSize: Int) =
             UserPagingSource(remoteDataSource, uid, pageSize)
-        }.flow.map {
-            it.map { item -> UserModel.Item(item) }
-              .insertSeparators { before, after ->
-                  if (before is UserModel.Item && after is UserModel.Item) UserModel.Separator else null
-              }
-        }
 
-    override suspend fun getUserById(uid: String) = withContext(ioDispatcher) {
-        remoteDataSource.getById(uid)
-    }
+    override fun getUserById(uid: String) =
+            remoteDataSource.getById(uid)
 }
