@@ -6,6 +6,7 @@ import com.smparkworld.githubsearcher.model.User
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
+import kotlin.math.min
 
 class UserRemoteDataSourceImpl @Inject constructor(
         private val githubAPI: GithubAPI
@@ -21,6 +22,6 @@ class UserRemoteDataSourceImpl @Inject constructor(
                 githubAPI.getReposById(uid, "updated")
                     .subscribeOn(Schedulers.io()),              // 병렬처리를 위함
             ) { user, repos ->
-                user.apply { this.repos = repos.slice(0 until repoLimit) }
+                user.apply { this.repos = repos.slice(0 until min(repos.size, repoLimit)) }
             }
 }
