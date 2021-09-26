@@ -13,9 +13,14 @@ class UserRemoteDataSourceImpl @Inject constructor(
 
     override fun searchById(uid: String, size:Int, page: Int): Single<SearchUsersResponse> =
         githubAPI.searchUsersById(uid, size, page)
-            .subscribeOn(Schedulers.io())
 
-    override fun getById(uid: String): Single<User> =
-        githubAPI.getUserById(uid)
-            .subscribeOn(Schedulers.io())
+    override fun getOverviewById(uid: String, repoLimit: Int): Single<User> =
+        Single.zip(
+                githubAPI.getUserById(uid)
+                    .subscribeOn(Schedulers.io()),              // 병렬처리를 위함
+                githubAPI.getReposById(uid, "updated")
+                    .subscribeOn(Schedulers.io()),              // 병렬처리를 위함
+            ) { user, repos ->
+                user.apply { this.repos = repos.slice(0 until repoLimit) }
+            }
 }

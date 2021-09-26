@@ -10,7 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.smparkworld.githubsearcher.GithubSearcherApp
 import com.smparkworld.githubsearcher.R
-import com.smparkworld.githubsearcher.data.repository.PagingLoadStateAdapter
 import com.smparkworld.githubsearcher.databinding.ActivitySearchuserBinding
 import com.smparkworld.githubsearcher.extension.showSnackbar
 import com.smparkworld.githubsearcher.model.User
@@ -56,7 +55,7 @@ class SearchUserActivity : AppCompatActivity() {
                         if (state.refresh is LoadState.NotLoading && itemCount == 0) null else state
                     )
                 }
-                binding.rvUsers.adapter = withLoadStateFooter(PagingLoadStateAdapter(::retry))
+                binding.rvUsers.adapter = withLoadStateFooter(UsersLoadStateAdapter(::retry))
             }
 
             lifecycleScope.launch {

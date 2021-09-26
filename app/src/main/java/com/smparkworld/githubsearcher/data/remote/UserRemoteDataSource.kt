@@ -8,5 +8,5 @@ interface UserRemoteDataSource {
 
     fun searchById(uid: String, size: Int, page: Int): Single<SearchUsersResponse>
 
-    fun getById(uid: String): Single<User>
+    fun getOverviewById(uid: String, repoLimit: Int): Single<User>
 }

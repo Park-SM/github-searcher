@@ -7,5 +7,5 @@ interface UserRepository {
 
     fun searchUserById(uid: String, pageSize: Int): UserPagingSource
 
-    fun getUserById(uid: String): Single<User>
+    fun getOverviewById(uid: String, repoLimit: Int): Single<User>
 }

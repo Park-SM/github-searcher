@@ -9,15 +9,15 @@ import com.smparkworld.githubsearcher.R
 import com.smparkworld.githubsearcher.databinding.ItemDetailuserAdapterEventBinding
 import com.smparkworld.githubsearcher.databinding.ItemDetailuserAdapterUserinfoBinding
 import com.smparkworld.githubsearcher.model.Event
-import com.smparkworld.githubsearcher.model.DetailUserUIModel
+import com.smparkworld.githubsearcher.model.DetailUserUiModel
 
 class DetailUserAdapter
-    : PagingDataAdapter<DetailUserUIModel, RecyclerView.ViewHolder>(DetailUserUIModel.DIFF_CALLBACK) {
+    : PagingDataAdapter<DetailUserUiModel, RecyclerView.ViewHolder>(DetailUserUiModel.DIFF_CALLBACK) {
 
     override fun getItemViewType(position: Int) =
             when(getItem(position)) {
-                is DetailUserUIModel.Header -> R.layout.item_detailuser_adapter_userinfo
-                is DetailUserUIModel.Item   -> R.layout.item_detailuser_adapter_event
+                is DetailUserUiModel.Header -> R.layout.item_detailuser_adapter_userinfo
+                is DetailUserUiModel.Item   -> R.layout.item_detailuser_adapter_event
                 else                        -> R.layout.item_detailuser_adapter_separator
             }
 
@@ -48,10 +48,10 @@ class DetailUserAdapter
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = getItem(position)) {
-            is DetailUserUIModel.Header -> if (holder is UserInfoViewHolder) {
+            is DetailUserUiModel.Header -> if (holder is UserInfoViewHolder) {
                 holder.bind(item)
             }
-            is DetailUserUIModel.Item   -> if (holder is EventViewHolder) {
+            is DetailUserUiModel.Item   -> if (holder is EventViewHolder) {
                 holder.bind(item.event)
             }
         }
@@ -62,9 +62,8 @@ class DetailUserAdapter
             private val binding: ItemDetailuserAdapterUserinfoBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(header: DetailUserUIModel.Header) {
+        fun bind(header: DetailUserUiModel.Header) {
             binding.user  = header.user
-            binding.repos = header.repos
             binding.rvRepos.adapter = RepoAdapter()
             binding.executePendingBindings()
         }
