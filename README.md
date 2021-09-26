@@ -17,7 +17,7 @@ Github에서 제공하는 OpenAPI를 사용했습니다.<br>
 >https://docs.github.com/en/rest
 
 ## 3. Tech
-`Android` `Kotlin` `MVVM` `AAC ViewModel` `AAC LiveData` `Coroutine` `DataBinding` `RepositoryPattern` `Dagger2` `Retrofit2` `OkHttpClient` `Android-KTX` `Paging3` `Glide`
+`Android` `Kotlin` `MVVM` `AAC ViewModel` `AAC LiveData` `Coroutine` `` `DataBinding` `RepositoryPattern` `Dagger2` `Retrofit2` `OkHttpClient` `Android-KTX` `Paging3` `Glide`
 
 ## 4. Setup
 이 설정 과정은 진행하지 않아도 정상적으로 이용할 수 있지만, GithubAPI의 속도 제한과 요청 제한 때문에 원활하게 이용하지 못할 수 있습니다. 제한 없이 사용하기 위해서는 이 설정 과정을 따라야 합니다.
