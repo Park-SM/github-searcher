@@ -1,8 +1,8 @@
 package com.smparkworld.githubsearcher.ui.searchuser.di
 
-import com.smparkworld.githubsearcher.ui.searchuser.SearchUserActivity;
+import com.smparkworld.githubsearcher.ui.searchuser.SearchUserActivity
 
-import dagger.Subcomponent;
+import dagger.Subcomponent
 
 @Subcomponent(modules = [SearchUserModule::class])
 interface SearchUserComponent {

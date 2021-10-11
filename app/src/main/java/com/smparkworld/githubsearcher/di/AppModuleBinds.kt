@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.smparkworld.githubsearcher.di
 
 import androidx.lifecycle.ViewModelProvider

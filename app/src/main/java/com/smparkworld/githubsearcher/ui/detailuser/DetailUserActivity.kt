@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 class DetailUserActivity : AppCompatActivity() {
 
-    lateinit var detailUserComponent: DetailUserComponent
+    private lateinit var detailUserComponent: DetailUserComponent
 
     lateinit var binding: ActivityDetailuserBinding
 
@@ -65,7 +65,7 @@ class DetailUserActivity : AppCompatActivity() {
             val adapter = DetailUserAdapter().apply {
                 addLoadStateListener { state ->
                     viewModel.setEventEmpty(
-                        // User 정보를 보여주는 Header가 있기 때문에 itemCount == 1로 Event가 비어있는지 확인
+                        // User 정보를 보여주는 Header 가 있기 때문에 itemCount == 1로 Event 가 비어있는지 확인
                         if (state.refresh is LoadState.NotLoading && itemCount == 1) null else state
                     )
                 }

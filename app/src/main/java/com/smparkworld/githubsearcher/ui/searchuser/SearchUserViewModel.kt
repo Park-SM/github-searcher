@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.*
 import com.smparkworld.githubsearcher.R
 import com.smparkworld.githubsearcher.data.repository.UserRepository
-import com.smparkworld.githubsearcher.model.UsersUiModel
+import com.smparkworld.githubsearcher.model.SearchUserUiModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.io.IOException
@@ -25,8 +25,8 @@ class SearchUserViewModel @Inject constructor(
     private val _isEmpty = MutableLiveData<Boolean>()
     val isEmpty: LiveData<Boolean> = _isEmpty
 
-    private val _users = MutableLiveData<Flow<PagingData<UsersUiModel>>>()
-    val users: LiveData<Flow<PagingData<UsersUiModel>>> = _users
+    private val _users = MutableLiveData<Flow<PagingData<SearchUserUiModel>>>()
+    val users: LiveData<Flow<PagingData<SearchUserUiModel>>> = _users
 
     val searchId = MutableLiveData<String>()
 
@@ -42,9 +42,9 @@ class SearchUserViewModel @Inject constructor(
         ) {
             userRepository.searchUserById(search, 50)
         }.flow.map {
-            it.map { item -> UsersUiModel.Item(item) }
+            it.map { item -> SearchUserUiModel.Item(item) }
                 .insertSeparators { before, after ->
-                    if (before is UsersUiModel.Item && after is UsersUiModel.Item) UsersUiModel.Separator else null
+                    if (before is SearchUserUiModel.Item && after is SearchUserUiModel.Item) SearchUserUiModel.Separator else null
                 }
         }
     }

@@ -26,6 +26,7 @@ class ViewModelFactory @Inject constructor(
     }
 }
 
+@Suppress("unused")
 @Target(
     AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY
 )
