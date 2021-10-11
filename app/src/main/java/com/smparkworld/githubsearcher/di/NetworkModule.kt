@@ -16,8 +16,8 @@ object NetworkModule {
 
     // 적은 제한의 Github API를 호출하기 원하시면
     // User와 Repo 권한을 허가한 Personal Access Token을 입력해서 사용해주세요.
-    private val token  = ""
-    private val accept = "application/vnd.github.v3+json"
+    private const val token  = ""
+    private const val accept = "application/vnd.github.v3+json"
 
     private fun getClient(): OkHttpClient {
         val interceptor = Interceptor { chain ->

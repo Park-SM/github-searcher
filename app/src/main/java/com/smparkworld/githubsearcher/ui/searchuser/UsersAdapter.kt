@@ -8,16 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.smparkworld.githubsearcher.R
 import com.smparkworld.githubsearcher.databinding.ItemSearchuserAdapterBinding
 import com.smparkworld.githubsearcher.model.User
-import com.smparkworld.githubsearcher.model.UsersUiModel
+import com.smparkworld.githubsearcher.model.SearchUserUiModel
 
 class UsersAdapter(
     private val onClickItem: (User) -> Unit
-) : PagingDataAdapter<UsersUiModel, RecyclerView.ViewHolder>(UsersUiModel.DIFF_CALLBACK) {
+) : PagingDataAdapter<SearchUserUiModel, RecyclerView.ViewHolder>(SearchUserUiModel.DIFF_CALLBACK) {
 
     override fun getItemViewType(position: Int) =
             when(getItem(position)) {
-                is UsersUiModel.Item -> R.layout.item_searchuser_adapter
-                else              -> R.layout.item_searchuser_adapter_separator
+                is SearchUserUiModel.Item -> R.layout.item_searchuser_adapter
+                else                      -> R.layout.item_searchuser_adapter_separator
             }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -40,7 +40,7 @@ class UsersAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
-        if (item is UsersUiModel.Item && holder is UserViewHolder) {
+        if (item is SearchUserUiModel.Item && holder is UserViewHolder) {
             holder.bind(item.user)
         }
     }

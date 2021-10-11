@@ -19,16 +19,17 @@
             android:id="@+id/imageView"
             android:layout_width="@dimen/itemDetailUserInfo_avatarSize"
             android:layout_height="@dimen/itemDetailUserInfo_avatarSize"
-            android:layout_marginLeft="@dimen/itemDetailUserInfo_avatarMargin"
+            android:layout_marginStart="@dimen/itemDetailUserInfo_avatarMargin"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:loadCircleImg="@{user.avatarUrl}" />
+            app:loadCircleImg="@{user.avatarUrl}"
+            android:contentDescription="@string/logoContentDescription" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/itemDetailUserInfo_avatarMargin"
+            android:layout_marginStart="@dimen/itemDetailUserInfo_avatarMargin"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/textView5"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/itemDetailUserInfo_subtitleMarginTop"
-            android:layout_marginLeft="@dimen/activityDetailUser_fragPadding"
+            android:layout_marginStart="@dimen/activityDetailUser_fragPadding"
             android:text="@string/itemDetailUserInfo_subtitleRepository"
             android:textSize="@dimen/itemDetailUserInfo_subtitleTextSize"
             android:textColor="@color/gray"
@@ -104,7 +105,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/itemDetailUserInfo_subtitleMarginTop"
-            android:layout_marginLeft="@dimen/activityDetailUser_fragPadding"
+            android:layout_marginStart="@dimen/activityDetailUser_fragPadding"
             android:text="@string/itemDetailUserInfo_subtitleEvent"
             android:textSize="@dimen/itemDetailUserInfo_subtitleTextSize"
             android:textColor="@color/gray"

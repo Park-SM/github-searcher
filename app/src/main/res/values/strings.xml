@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Github Searcher</string>
 
+    <string name="logoContentDescription">로고 이미지</string>
+
     <string name="error_failedToConnectNetwork">Github 서비스에 접근할 수 없습니다. 네트워크 상태를 확인해주세요.</string>
     <string name="error_fatalNetwork">Github API 사용 속도 제한을 초과했습니다.\n잠시 후 다시 시도해주세요.</string>
 
@@ -15,6 +17,7 @@
     <string name="itemDetailUserInfo_subtitleRepository">Repositories</string>
     <string name="itemDetailUserInfo_emptyRepo">아직 저장소가 없습니다.</string>
     <string name="itemDetailUserInfo_subtitleEvent">Events</string>
+    <string name="itemDetailUserInfo_emptyEvent">최근 활동이 없습니다.</string>
 
 
 </resources>

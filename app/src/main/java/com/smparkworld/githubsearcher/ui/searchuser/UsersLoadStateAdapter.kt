@@ -35,12 +35,16 @@ class UsersLoadStateAdapter(
             binding.errorLayout.isVisible = loadState is LoadState.Error
 
             if (loadState is LoadState.Error) {
-                if (loadState.error.message?.contains("422") == true) {
-                    binding.root.isVisible = false
-                } else if (loadState.error.message?.contains("403") == true) {
-                    binding.tvErrorMsg.setText(R.string.error_fatalNetwork)
-                } else {
-                    binding.tvErrorMsg.setText(R.string.error_failedToConnectNetwork)
+                when {
+                    loadState.error.message?.contains("422") == true -> {
+                        binding.root.isVisible = false
+                    }
+                    loadState.error.message?.contains("403") == true -> {
+                        binding.tvErrorMsg.setText(R.string.error_fatalNetwork)
+                    }
+                    else -> {
+                        binding.tvErrorMsg.setText(R.string.error_failedToConnectNetwork)
+                    }
                 }
             }
         }
