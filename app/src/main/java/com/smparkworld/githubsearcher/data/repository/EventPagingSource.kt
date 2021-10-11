@@ -1,6 +1,5 @@
 package com.smparkworld.githubsearcher.data.repository
 
-import android.util.Log
 import androidx.paging.PagingState
 import androidx.paging.rxjava3.RxPagingSource
 import com.smparkworld.githubsearcher.data.remote.EventRemoteDataSource
