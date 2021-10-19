@@ -22,7 +22,7 @@ import java.net.UnknownHostException
 
 class SearchUserViewModelTest {
 
-    @get:Rule
+    @Rule
     var rule = InstantTaskExecutorRule()
 
     private lateinit var searchUserViewModel: SearchUserViewModel
