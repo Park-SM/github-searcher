@@ -26,7 +26,11 @@ class SearchUserActivityTest {
 
     @Test
     fun `when searching by valid keyword then itemCount is greater than 0`() {
-        onView(withId(R.id.editText)).perform(typeText("Park-"), pressImeActionButton())
+        onView(withId(R.id.editText)).perform(
+            typeText("Park-"),
+            pressImeActionButton(),
+            closeSoftKeyboard()
+        )
 
         Thread.sleep(TIME_OUT)
 
@@ -35,7 +39,11 @@ class SearchUserActivityTest {
 
     @Test
     fun `when searching by invalid keyword then itemCount is 0`() {
-        onView(withId(R.id.editText)).perform(typeText("f139jqfijsdi1r2u9"), pressImeActionButton())
+        onView(withId(R.id.editText)).perform(
+            typeText("f139jqfijsdi1r2u9"),
+            pressImeActionButton(),
+            closeSoftKeyboard()
+        )
 
         Thread.sleep(TIME_OUT)
 
@@ -48,7 +56,11 @@ class SearchUserActivityTest {
         val myId = "Park-SM"
         val page = 3
 
-        onView(withId(R.id.editText)).perform(typeText(keyword), pressImeActionButton())
+        onView(withId(R.id.editText)).perform(
+            typeText(keyword),
+            pressImeActionButton(),
+            closeSoftKeyboard()
+        )
 
         Thread.sleep(TIME_OUT)
 
