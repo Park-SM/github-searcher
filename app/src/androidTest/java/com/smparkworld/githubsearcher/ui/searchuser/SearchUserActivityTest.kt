@@ -7,6 +7,7 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions.scrollToHolder
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.activityScenarioRule
+import com.google.common.truth.Truth.assertThat
 import com.smparkworld.githubsearcher.R
 import com.smparkworld.githubsearcher.extension.RecyclerViewActionsExt.scrollToEnd
 import com.smparkworld.githubsearcher.util.RecyclerViewAssertions
@@ -72,6 +73,41 @@ class SearchUserActivityTest {
 
         onView(withId(R.id.rvUsers)).perform(scrollToHolder(isInTheData(myId)))
         onView(allOf(withId(R.id.uid), withText(myId))).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun `when the ID item is clicked then DetailUserActivity should be launched`() {
+        val keyword = "Park-"
+        val myId = "Park-SM"
+        val page = 2
+
+        onView(withId(R.id.editText)).perform(
+            typeText(keyword),
+            pressImeActionButton(),
+            closeSoftKeyboard()
+        )
+
+        Thread.sleep(TIME_OUT)
+
+        // -1 is first page count
+        for (i in 0 until page - 1) {
+            onView(withId(R.id.rvUsers)).perform(scrollToEnd())
+            Thread.sleep(TIME_OUT)
+        }
+
+        onView(withId(R.id.rvUsers)).perform(scrollToHolder(isInTheData(myId)))
+        onView(allOf(withId(R.id.uid), withText(myId))).perform(click())
+
+        Thread.sleep(TIME_OUT)
+
+        // On DetailUserActivity
+        onView(withId(R.id.uid)).check { v, e ->
+            if (e != null) throw e
+            (v as? TextView) ?: throw ClassCastException()
+
+            // View of R.id.uid in DetailUserActivity is contain uid and name, so use to the contains method.
+            assertThat(v.text?.contains(myId) ?: false).isTrue()
+        }
     }
 
     private fun isInTheData(myId: String) = object: TypeSafeMatcher<UsersAdapter.UserViewHolder>() {
