@@ -26,7 +26,7 @@ import java.net.UnknownHostException
 
 class DetailUserViewModelTest {
 
-    @Rule
+    @get:Rule
     val rule = InstantTaskExecutorRule()
 
     private lateinit var detailUserViewModel: DetailUserViewModel
