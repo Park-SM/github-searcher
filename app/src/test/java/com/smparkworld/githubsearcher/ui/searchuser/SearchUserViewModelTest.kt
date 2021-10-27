@@ -17,12 +17,11 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito
-import java.io.IOException
 import java.net.UnknownHostException
 
 class SearchUserViewModelTest {
 
-    @Rule
+    @get:Rule
     var rule = InstantTaskExecutorRule()
 
     private lateinit var searchUserViewModel: SearchUserViewModel
