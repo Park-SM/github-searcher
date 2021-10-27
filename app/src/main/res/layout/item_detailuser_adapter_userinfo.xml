@@ -73,6 +73,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView5">
 
             <TextView
+                android:id="@+id/tvEmptyRepo"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/itemDetailUserInfo_emptyItemHeight"
                 android:layout_marginTop="@dimen/itemDetailUserInfo_repoItemMarginTopBottom"
