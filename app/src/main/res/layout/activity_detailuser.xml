@@ -67,6 +67,7 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                 <TextView
+                    android:id="@+id/tvEmptyEvent"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/itemDetailUserInfo_emptyItemHeight"
                     android:layout_marginStart="20dp"
