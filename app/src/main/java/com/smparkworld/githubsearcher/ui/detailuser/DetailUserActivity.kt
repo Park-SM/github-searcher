@@ -22,8 +22,6 @@ class DetailUserActivity : AppCompatActivity() {
 
     private lateinit var detailUserComponent: DetailUserComponent
 
-    lateinit var binding: ActivityDetailuserBinding
-
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -37,7 +35,7 @@ class DetailUserActivity : AppCompatActivity() {
         detailUserComponent = (application as GithubSearcherApp).appComponent.detailUserComponent().create()
         detailUserComponent.inject(this)
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView<ActivityDetailuserBinding>(
+        DataBindingUtil.setContentView<ActivityDetailuserBinding>(
                 this, R.layout.activity_detailuser
         ).apply {
             setSupportActionBar(toolbar)
@@ -46,9 +44,10 @@ class DetailUserActivity : AppCompatActivity() {
 
             lifecycleOwner = this@DetailUserActivity
             vm = viewModel
+
+            initObservers(this)
         }
         viewModel.loadUser(uid)
-        initObservers()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -58,7 +57,7 @@ class DetailUserActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun initObservers() {
+    private fun initObservers(binding: ActivityDetailuserBinding) {
         viewModel.error.observe(this) { showSnackbar(it) }
         viewModel.events.observe(this) { flow ->
 
