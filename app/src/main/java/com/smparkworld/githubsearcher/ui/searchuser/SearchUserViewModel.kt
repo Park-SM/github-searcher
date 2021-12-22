@@ -7,11 +7,13 @@ import androidx.paging.*
 import com.smparkworld.githubsearcher.R
 import com.smparkworld.githubsearcher.data.repository.UserRepository
 import com.smparkworld.githubsearcher.model.SearchUserUiModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 import javax.inject.Inject
 
+@HiltViewModel
 class SearchUserViewModel @Inject constructor(
     private val userRepository: UserRepository,
 ) : ViewModel() {

@@ -8,32 +8,25 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import com.smparkworld.githubsearcher.GithubSearcherApp
 import com.smparkworld.githubsearcher.R
 import com.smparkworld.githubsearcher.databinding.ActivityDetailuserBinding
 import com.smparkworld.githubsearcher.extension.showSnackbar
-import com.smparkworld.githubsearcher.ui.detailuser.di.DetailUserComponent
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.lang.RuntimeException
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class DetailUserActivity : AppCompatActivity() {
 
-    private lateinit var detailUserComponent: DetailUserComponent
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private val viewModel by viewModels<DetailUserViewModel> { viewModelFactory }
+    private val viewModel by viewModels<DetailUserViewModel>()
 
     private val uid by lazy {
         intent.getStringExtra("uid") ?: throw RuntimeException("uid is null.")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        detailUserComponent = (application as GithubSearcherApp).appComponent.detailUserComponent().create()
-        detailUserComponent.inject(this)
         super.onCreate(savedInstanceState)
         DataBindingUtil.setContentView<ActivityDetailuserBinding>(
                 this, R.layout.activity_detailuser

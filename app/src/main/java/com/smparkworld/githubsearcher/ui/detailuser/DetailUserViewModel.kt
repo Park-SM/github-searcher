@@ -6,6 +6,7 @@ import com.smparkworld.githubsearcher.R
 import com.smparkworld.githubsearcher.data.repository.EventRepository
 import com.smparkworld.githubsearcher.data.repository.UserRepository
 import com.smparkworld.githubsearcher.model.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.flow.Flow
@@ -13,6 +14,7 @@ import kotlinx.coroutines.flow.map
 import java.io.IOException
 import javax.inject.Inject
 
+@HiltViewModel
 class DetailUserViewModel @Inject constructor(
         private val userRepository: UserRepository,
         private val eventRepository: EventRepository

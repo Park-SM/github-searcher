@@ -4,6 +4,8 @@ import com.smparkworld.githubsearcher.BuildConfig
 import com.smparkworld.githubsearcher.data.remote.api.GithubAPI
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -12,6 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
+@InstallIn(SingletonComponent::class)
 object NetworkModule {
 
     // 적은 제한의 Github API를 호출하기 원하시면

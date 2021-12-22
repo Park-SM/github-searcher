@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -76,16 +77,17 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0-alpha03'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.5.0-alpha03'
 
-
     // Retrofit2
     def version_retrofit2 = "2.9.0"
     implementation "com.squareup.retrofit2:retrofit:$version_retrofit2"
     implementation "com.squareup.retrofit2:converter-gson:$version_retrofit2"
 
-    // Dagger2
-    def version_dagger2 = "2.25.4"
-    implementation "com.google.dagger:dagger:$version_dagger2"
-    kapt "com.google.dagger:dagger-compiler:$version_dagger2"
+    // Hilt
+    def version_hilt = "2.40.5"
+    def version_hilt_vm_ext = "1.0.0-alpha03"
+    implementation "com.google.dagger:hilt-android:$version_hilt"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$version_hilt_vm_ext"
+    kapt "com.google.dagger:hilt-android-compiler:$version_hilt"
 
     // Fragment KTX
     implementation "androidx.fragment:fragment-ktx:1.3.6"

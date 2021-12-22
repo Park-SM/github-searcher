@@ -1,11 +1,7 @@
 package com.smparkworld.githubsearcher
 
 import android.app.Application
-import com.smparkworld.githubsearcher.di.DaggerAppComponent
+import dagger.hilt.android.HiltAndroidApp
 
-class GithubSearcherApp : Application() {
-
-    val appComponent by lazy {
-        DaggerAppComponent.factory().create(applicationContext)
-    }
-}
+@HiltAndroidApp
+class GithubSearcherApp : Application()

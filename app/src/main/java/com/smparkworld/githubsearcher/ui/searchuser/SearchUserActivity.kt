@@ -14,21 +14,19 @@ import com.smparkworld.githubsearcher.databinding.ActivitySearchuserBinding
 import com.smparkworld.githubsearcher.extension.showSnackbar
 import com.smparkworld.githubsearcher.model.User
 import com.smparkworld.githubsearcher.ui.detailuser.DetailUserActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class SearchUserActivity : AppCompatActivity() {
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     lateinit var binding: ActivitySearchuserBinding
 
-    private val viewModel by viewModels<SearchUserViewModel> { viewModelFactory }
+    private val viewModel by viewModels<SearchUserViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as GithubSearcherApp).appComponent.searchUserComponent().create().inject(this)
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView<ActivitySearchuserBinding>(
             this, R.layout.activity_searchuser
