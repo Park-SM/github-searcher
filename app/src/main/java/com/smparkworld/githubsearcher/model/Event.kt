@@ -1,7 +1,9 @@
 package com.smparkworld.githubsearcher.model
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class Event(
 
         @SerializedName("id")
@@ -17,6 +19,7 @@ data class Event(
         val repo: EventTargetRepo
 )
 
+@Keep
 data class EventTargetRepo(
 
         @SerializedName("name")

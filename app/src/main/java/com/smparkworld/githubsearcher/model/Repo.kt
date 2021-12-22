@@ -1,8 +1,10 @@
 package com.smparkworld.githubsearcher.model
 
+import androidx.annotation.Keep
 import androidx.recyclerview.widget.DiffUtil
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class Repo(
 
     @SerializedName("name")
