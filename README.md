@@ -24,6 +24,9 @@ Github에서 제공하는 OpenAPI를 사용했습니다.<br>
 - Dagge2 적용 후 Hilt로 Migration
 - Build Variant 및 SigningConfigs 설정 작업할 예정
 - Jenkins에서 Environment -> UnitTest -> Assemble(Build) 확인하도록 작업
+&nbsp; <img src="https://user-images.githubusercontent.com/47319426/156934971-35236ae8-6910-484f-9677-b44049114959.PNG" width="500">
+
+  
 
 ## 5. Setup
 이 설정 과정은 진행하지 않아도 정상적으로 이용할 수 있지만, GithubAPI의 속도 제한과 요청 제한 때문에 원활하게 이용하지 못할 수 있습니다. 제한 없이 사용하기 위해서는 이 설정 과정을 따라야 합니다.
