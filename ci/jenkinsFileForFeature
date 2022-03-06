@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+
+    tools {
+        jdk("JAVA8")
+    }
+
+    environment {
+
+        // 추후에 build.gradle(:app)에서 Build Variant 나누고 원하는 빌드로 변경할 예정.
+        BUILD_VARIANT = "Debug"
+    }
+
+    stages {
+        stage("Environment") {
+            steps {
+                script {
+
+                    // Build Variant 설정 후 Build flavor에 맞는 keystore 파일 추가,
+                    // build.gradle(:app)에서 signingConfigs 추가하고 로컬 빌드를 돌릴 때는
+                    // keystore에 대한 password를 파일로 저장 후 사용.
+
+                    // 하지만 이 password 파일을 github으로 push하진 않으니,
+                    // jenkins에서는 credential로 암호를 갖고있고 여기 "Environment" stage에서 withCredentials로 가져온 후
+                    // 세션 환경 변수(env)에 넣는 처리해야함.
+
+                    // 그리고 build.gradle(:app)에서 keystore의 password를 저장한 파일이 없으면,
+                    // env에 저장한 password 값으로 signing할 수 있도록 구성해야함.
+
+                    // 일단 지금 Build Variant 설정하고 signingConfigs 설정할 시간 없으니.. 일단 이렇게 주석이라도 남겨둠.
+                }
+            }
+        }
+
+        stage("Assemble") {
+            steps {
+                sh "./gradlew assemble${env.BUILD_VARIANT} --stacktrace"
+                archiveArtifacts artifacts: "**/*.apk, **/mapping.txt", fingerprint: true
+            }
+        }
+    }
+
+    // Slack 채널에 뿌릴 거면 plugin 설정하고 여기다가 post { ... } 작성하기
+}
