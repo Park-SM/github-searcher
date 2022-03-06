@@ -22,6 +22,8 @@ Github에서 제공하는 OpenAPI를 사용했습니다.<br>
 ## 4. Description
 - Coroutine 적용 후 Page3를 RxJava로 사용해보는 공부를 위해 중간에 RxJava3로 이전
 - Dagge2 적용 후 Hilt로 Migration
+- Build Variant 및 SigningConfigs 설정 작업할 예정
+- Jenkins에서 Environment -> UnitTest -> Assemble(Build) 확인하도록 작업
 
 ## 5. Setup
 이 설정 과정은 진행하지 않아도 정상적으로 이용할 수 있지만, GithubAPI의 속도 제한과 요청 제한 때문에 원활하게 이용하지 못할 수 있습니다. 제한 없이 사용하기 위해서는 이 설정 과정을 따라야 합니다.
