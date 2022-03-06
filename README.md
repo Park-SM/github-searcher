@@ -19,13 +19,17 @@ Github에서 제공하는 OpenAPI를 사용했습니다.<br>
 ## 3. Tech
 `Android` `Kotlin` `MVVM` `AAC ViewModel` `AAC LiveData` `Coroutine` `RxJava3` `DataBinding` `RepositoryPattern` `Dagger2` `Retrofit2` `OkHttpClient` `Android-KTX` `Paging3` `Glide` `Lint` `JUnit` `Mockito` `Espresso` `proguard` `Jenkins`
 
-## 4. Setup
+## 4. Description
+- Coroutine 적용 후 Page3를 RxJava로 사용해보는 공부를 위해 중간에 RxJava3로 이전
+- Dagge2 적용 후 Hilt로 Migration
+
+## 5. Setup
 이 설정 과정은 진행하지 않아도 정상적으로 이용할 수 있지만, GithubAPI의 속도 제한과 요청 제한 때문에 원활하게 이용하지 못할 수 있습니다. 제한 없이 사용하기 위해서는 이 설정 과정을 따라야 합니다.
 1. Github 우측 프로필 > `Settings` > 좌측 메뉴의 `Developer Settings` > `Personal access tokens` > `Generate new token` > `repo` 권한과 `user` 권한 선택 후 발급받습니다.
 2. `/app/src/main/java/com/smparkworld/githubsearcher/di/NetworkModule.kt` 파일을 엽니다.
 3. `NetworkModule.kt`파일 18번째 줄의 token 상수에 발급받은 token을 입력합니다.
 
-## 5. Preview
+## 6. Preview
 1. 아이디 검색
  <img src="https://user-images.githubusercontent.com/47319426/133830269-5ab45ec9-b779-4696-9229-0bec3f5a039c.jpg" width="300">
 
