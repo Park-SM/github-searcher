@@ -16,7 +16,7 @@ pipeline {
             steps {
                 script {
 
-                    sh "hello, jenkins"
+                    sh "echo hello, jenkins"
 
                     // Build Variant 설정 후 Build flavor에 맞는 keystore 파일 추가,
                     // build.gradle(:app)에서 signingConfigs 추가하고 로컬 빌드를 돌릴 때는
